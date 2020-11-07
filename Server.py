@@ -4,17 +4,20 @@ import Get_IP
  
 def decode_instruction(msg):
 	if "FWD" in msg:
-		print("moving forward")
+		print("Moving forward")
 		retval="Moved Forward"
 	elif "BCK" in msg:
-		print("moving back")
+		print("Moving back")
 		retval="Moved Back"
 	elif "LEFT" in msg:
-		print("moving left")
+		print("Moving left")
 		retval="Moved Left"
 	elif "RIGHT" in msg:
-		print("moving right")
+		print("Moving right")
 		retval="Moved Right"
+	elif "SD" in msg:
+		print("Sever shutdown")
+		exit()
 	else:
 		print("Uknown command: {}".format(msg))
 		retval="Uknown command: {}".format(msg)
@@ -45,15 +48,12 @@ while(True):
     message = message.decode("utf-8")
     address = bytesAddressPair[1]
 
-    clientMsg = "Message from Client: '{}' ".format(message)
-    clientIP  = "Client IP Address:{}".format(address)
+    print("Message from Client: '{}' ".format(message))
+    print("Client IP Address:{}".format(address))
 
-    print(message.upper())
     msgFromServer = decode_instruction(message.upper())
     bytesToSend         = str.encode(msgFromServer)
 
-    print(clientMsg)
-    print(clientIP)
     # Sending a reply to client
 
     UDPServerSocket.sendto(bytesToSend, address)
