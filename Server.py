@@ -1,8 +1,12 @@
 
 import socket
+import urllib
 
+def get_my_ip_address():
+    whatismyip = 'http://www.whatismyip.com/automation/n09230945.asp'
+    return urllib.urlopen(whatismyip).readlines()[0]
  
-localIP = socket.gethostbyname("raspberrypi")
+localIP = get_my_ip_address
 print(localIP)
 
 localPort   = 20001
