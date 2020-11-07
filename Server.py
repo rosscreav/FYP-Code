@@ -5,12 +5,20 @@ import Get_IP
 def decode_instruction(msg):
 	if "FWD" in msg:
 		print("moving forward")
+		retval="Moved Forward"
 	elif "BCK" in msg:
 		print("moving back")
+		retval="Moved Forward"
 	elif "LEFT" in msg:
 		print("moving left")
+		retval="Moved Forward"
 	elif "RIGHT" in msg:
 		print("moving right")
+		retval="Moved Forward"
+	else:
+		print("Uknown command: {}".format(msg))
+		retval="Uknown command: {}".format(msg)
+	return retval
 
 
 localIP = Get_IP.get_ip()
@@ -21,8 +29,7 @@ bufferSize  = 1024
 
  
 
-msgFromServer       = "Hello UDP Client"
-bytesToSend         = str.encode(msgFromServer)
+
 # Create a datagram socket
 UDPServerSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 # Bind to address and ip
@@ -41,8 +48,10 @@ while(True):
     clientMsg = "Message from Client: '{}' ".format(message)
     clientIP  = "Client IP Address:{}".format(address)
 
-    decode_instruction(message.upper())
-    
+    print(message.upper())
+    msgFromServer = decode_instruction(message.upper())
+	bytesToSend         = str.encode(msgFromServer)
+
     print(clientMsg)
     print(clientIP)
     # Sending a reply to client
