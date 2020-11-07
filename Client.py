@@ -15,7 +15,8 @@ UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
  
 while True:
 	msgFromClient=input("Enter Message to send:")
-	if msgFromClient=="exit":
+	if msgFromClient.upper()=="SD":
+		print("UDP Shutdown intialised")
 		exit()
 	bytesToSend         = str.encode(msgFromClient)
 	# Send to server using created UDP socket
