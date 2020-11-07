@@ -2,8 +2,8 @@
 import socket
 
  
-
-localIP     = "192.168.0.14"
+localIP = socket.gethostbyname("raspberrypi")
+print(localIP)
 
 localPort   = 20001
 
@@ -46,7 +46,7 @@ while(True):
     clientMsg = "Message from Client:{}".format(message)
     clientIP  = "Client IP Address:{}".format(address)
 
-    print(type())
+    print(type(clientMsg))
     
     print(clientMsg)
     print(clientIP)
