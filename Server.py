@@ -1,12 +1,8 @@
-
 import socket
-import urllib
-
-def get_my_ip_address():
-    whatismyip = 'http://www.whatismyip.com/automation/n09230945.asp'
-    return urllib.urlopen(whatismyip).readlines()[0]
+import urllib.request
+import Get_IP
  
-localIP = get_my_ip_address
+localIP = Get_IP.get_ip()
 print(localIP)
 
 localPort   = 20001
@@ -44,14 +40,14 @@ while(True):
     bytesAddressPair = UDPServerSocket.recvfrom(bufferSize)
 
     message = bytesAddressPair[0]
-
+    message = message.decode("utf-8")
     address = bytesAddressPair[1]
 
-    clientMsg = "Message from Client:{}".format(message)
+    clientMsg = "Message from Client: '{}' ".format(message)
     clientIP  = "Client IP Address:{}".format(address)
 
-    print(type(clientMsg))
-    
+    if message == "one":
+         print("true")
     print(clientMsg)
     print(clientIP)
     # Sending a reply to client
