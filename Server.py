@@ -8,13 +8,13 @@ def decode_instruction(msg):
 		retval="Moved Forward"
 	elif "BCK" in msg:
 		print("moving back")
-		retval="Moved Forward"
+		retval="Moved Back"
 	elif "LEFT" in msg:
 		print("moving left")
-		retval="Moved Forward"
+		retval="Moved Left"
 	elif "RIGHT" in msg:
 		print("moving right")
-		retval="Moved Forward"
+		retval="Moved Right"
 	else:
 		print("Uknown command: {}".format(msg))
 		retval="Uknown command: {}".format(msg)
@@ -50,7 +50,7 @@ while(True):
 
     print(message.upper())
     msgFromServer = decode_instruction(message.upper())
-	bytesToSend         = str.encode(msgFromServer)
+    bytesToSend         = str.encode(msgFromServer)
 
     print(clientMsg)
     print(clientIP)
