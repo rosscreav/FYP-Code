@@ -14,9 +14,9 @@ def back():
 
 def right(d=1):
 	k.motor1.throttle = -0.5*d
-	k.motor2.throttle = 0.5*d
+	k.motor2.throttle = -0.5*d
 	k.motor3.throttle = -0.5*d
-	k.motor4.throttle = 0.5*d
+	k.motor4.throttle = -0.5*d
 	time.sleep(1)
 	
 

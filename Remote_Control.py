@@ -1,5 +1,8 @@
 import motor_controller
 import time
+import Get_IP
+import socket
+import urllib.request
 
 def decode_instruction(msg):
 	if "FWD" in msg:
