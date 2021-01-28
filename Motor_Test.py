@@ -1,7 +1,6 @@
 import RPi.GPIO as GPIO
 import time
 
-GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
 
 frontleft = 17
