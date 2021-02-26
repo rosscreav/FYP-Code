@@ -15,21 +15,21 @@ thread_stop_event = Event()
 
 
 def update_chart_data():
-    while not thread_stop_event.isSet():
-        legend = 'Lidar Readings'
-        data = []
-        times = []
-        database = firebase_query.get_most_recent_data()
-        for entry in database:
-            times.append(entry['timestamp'])
-            data.append(entry['lidar'])
-        data.reverse()
-        times.reverse()
-        data_dict = {"data": data, "labels": times, "legend": legend}
-        # print(data)
-        # print("Updating : "+str(data_dict))
-        socketIO.emit('update', data_dict, namespace='/test')
-        socketIO.sleep(5)
+    #while not thread_stop_event.isSet():
+    legend = 'Lidar Readings'
+    data = []
+    times = []
+    database = firebase_query.get_most_recent_data()
+    for entry in database:
+        times.append(entry['timestamp'])
+        data.append(entry['lidar'])
+    data.reverse()
+    times.reverse()
+    data_dict = {"data": data, "labels": times, "legend": legend}
+    # print(data)
+    # print("Updating : "+str(data_dict))
+    socketIO.emit('update', data_dict, namespace='/test')
+    socketIO.sleep(5)
 
 
 @app.route('/')

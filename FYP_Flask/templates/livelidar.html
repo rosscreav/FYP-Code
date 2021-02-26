@@ -2,23 +2,131 @@
 <html>
 <head>
     <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js">		</script>
+
     <script src='static/Chart.min.js'></script>
     <script src="static/livechart.js"></script>
 
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-    <div class="jumbotron">
-        <h1>Asynchronous Flask Communication</h1>
-        <p>Live lidar updates from firebase.</p>
+
+<style>
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+  padding-left:50px;
+  padding-right:50px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+.inactivecolors{
+    color:#610404;
+    text-shadow: 1px 1px 5px #cf0606;
+}
+
+.activecolors{
+    color:#005e13;
+    text-shadow: 1px 1px 3px #00e82f;
+}
+
+</style>
+<div style="background-color:#f6f6f6">
+<div class="jumbotron" style="margin-bottom:0px;background-color:#49b3d8;">
+    <h1 style="padding-left:40px;color:white;">Robotic Mapping System</h1>
+    <p style="padding-left:40px">This webpage tracks the live updating from the Autonomous LIDAR Robotic
+        Mapping System
+    </p>
+</div>
+
+<div style="padding-left:60px;background-color: white;margin-left:40px;margin-right:40px;margin-bottom: 0px;margin-top:0px;">
+    <div class="row" style="padding-top:20px;">
+        <div class="column">
+            <img src="static\images\sample.png" alt="Room Map" style="object-fit: contain;box-shadow:10px;" width="768" height="432" >
+        </div>
+        <div class="column">
+            <iframe width="768" height="432" src="https://www.youtube.com/embed/yJ-AOtRXZbc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+        </div>
     </div>
+
+    <div class="row" style="margin-top:50px">
+        <div class="column">
+            <canvas id="myChart" width="740" height="432" style="float: left;"></canvas>
+            <p id="pointSelected"></p>
+        </div>
+        <div class="column">
+            <div style="padding-right:115px;">
+                <h2 style="color:black;">Current Sensor Values</h2>
+                <table class="table table-dark;" width="50%">
+                <thead>
+                <tr>
+                    <th scope="col" style="color:black;">Sensor</th>
+                    <th scope="col" style="color:black;">Value</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td scope="row" style="color:black;">Left Ultrasound</td>
+                    <td style="color:black;">1111cm</td>
+                </tr>
+                <tr>
+                    <td scope="row" style="color:black;">Right Ultrasound</td>
+                    <td style="color:black;">1111cm</td>
+                </tr>
+                <tr>
+                    <td scope="row" style="color:black;">Lidar Sensor</td>
+                    <td style="color:black;">1000cm</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+            <div style="padding-right:115px;">
+                <h2 style="color:black;">Task Status</h2>
+                <table class="table table-dark;" width="50%">
+                    <thead>
+                    <tr>
+                        <th style="color:black;">Action</th>
+                        <th scope="col" style="color:black;">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td style="color:black;">Collision Alarm</td>
+                        <td class="inactivecolors">Inactive</td>
+                    </tr>
+                    <tr>
+                        <td style="color:black;">Tracking Wall</th>
+                        <td class="activecolors">Active</td>
+                    </tr>
+                    <tr>
+                        <td style="color:black;">Finding Corner</td>
+                        <td class="inactivecolors">Inactive</td>
+                    </tr>
+                    <tr>
+                        <td style="color:black;">Finding Objects</td>
+                        <td class="inactivecolors">Inactive</td>
+                    </tr>
+                    <tr>
+                        <td style="color:black;">Map Complete</td>
+                        <td class="inactivecolors">Inactive</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 
-<canvas id="myChart" width="600" height="400" style="margin: auto;"></canvas>
-<p id="pointSelected"></p>
 
 
 
