@@ -5,15 +5,15 @@ import serial
 
 ser = serial.Serial("/dev/ttyAMA0", 115200)
 
-trig_l = 23
-echo_l = 24
+trig_l = 21
+echo_l = 20
 
-trig_r = 23
-echo_r = 24
+trig_r = 24
+echo_r = 23
 
 GPIO.setmode(GPIO.BCM)
 
-def read_ultrasound(trig, echo)
+def read_ultrasound(trig, echo):
 	GPIO.setup(trig,GPIO.OUT)
 	GPIO.setup(echo,GPIO.IN)
 	GPIO.output(trig, False)
@@ -49,7 +49,12 @@ def getTFminiData():
 def read_sensor_data():
 	ultrasound_l = read_ultrasound(trig_l,echo_l)
 	ultrasound_r = read_ultrasound(trig_r,echo_r)
-	lidar = getTFminiData()
+	#lidar = getTFminiData()
+	#f = open("image.png", "r")
 	GPIO.cleanup()
-	return {"left" : ultrasound_l,"right" : ultrasound_r, "front" : lidar}
+	print(ultrasound_l)
+	print(ultrasound_r)
+	#return {"ultra_left" : 20.23, "ultra_right" : 20.2, "lidar" : 20.32, "timestamp" : time.time()}
+	#return {"ultra_left" : ultrasound_l,"ultra_right" : ultrasound_r, "lidar" : lidar}
 
+read_sensor_data()
