@@ -3,7 +3,15 @@ import RPi.GPIO as GPIO
 import time
 import serial
 
-ser = serial.Serial("/dev/ttyAMA0", 115200)
+ser = serial.Serial('/dev/ttyUSB0',115200,timeout = 1)
+ser.write(0x42)
+ser.write(0x57)
+ser.write(0x02)
+ser.write(0x00)
+ser.write(0x00)
+ser.write(0x00)
+ser.write(0x01)
+ser.write(0x06)
 
 trig_l = 21
 echo_l = 20
@@ -35,16 +43,19 @@ def read_ultrasound(trig, echo):
 	return distance
 
 def getTFminiData():
-    while True:
-        count = ser.in_waiting
-        if count > 8:
-            recv = ser.read(9)
-            ser.reset_input_buffer()
-            if recv[0] == 'Y' and recv[1] == 'Y': # 0x59 is 'Y'
-                low = int(recv[2].encode('hex'), 16)
-                high = int(recv[3].encode('hex'), 16)
-                distance = low + high * 256
-                return distance
+    while(ser.in_waiting >= 9):
+        ser.read()
+        ser.read()
+   
+
+        Dist_L = ser.read()
+        Dist_H = ser.read()
+        Dist_Total = (ord(Dist_H) * 256) + (ord(Dist_L))
+        for i in range (0,5):
+            ser.read()
+        print(str(Dist_Total-3) + "cm")
+        ser.flush()
+        return Dist_Total-3
 
 def read_sensor_data():
 	ultrasound_l = read_ultrasound(trig_l,echo_l)
