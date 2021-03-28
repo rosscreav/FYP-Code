@@ -1,6 +1,7 @@
 from flask_socketio import SocketIO
 from flask import Flask, render_template
 from threading import Thread, Event
+from pythonfiles import Publish as p
 import firebase_query
 
 app = Flask(__name__)
@@ -37,6 +38,10 @@ def index():
     # only by sending this page first will the client be connected to the socketio instance
     return render_template('livelidar.html')
 
+@app.route('/MQTTControl')
+def index2():
+    return render_template('mqttcontrol.html')
+
 
 @socketIO.on('connect', namespace='/test')
 def test_connect():
@@ -49,6 +54,9 @@ def test_connect():
         print("Starting Thread")
         thread = socketIO.start_background_task(update_chart_data)
 
+@socketIO.on('message')
+def mqqt_message(data):
+    p.send(data)
 
 @socketIO.on('disconnect', namespace='/test')
 def test_disconnect():
