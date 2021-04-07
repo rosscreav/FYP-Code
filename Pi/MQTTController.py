@@ -1,5 +1,6 @@
 import paho.mqtt.client as paho
 import motor_controller as mc
+import time
 
 ##Print out when subscribed succesfully
 def on_subscribe(client, userdata, mid, granted_qos):
@@ -18,7 +19,7 @@ def on_message(client, userdata, msg):
         mc.stop()
     elif('back' in str(msg.payload)):
         print("moving back")
-        mc.forward()
+        mc.back()
         time.sleep(.75)
         mc.stop()
     elif('right' in str(msg.payload)):
