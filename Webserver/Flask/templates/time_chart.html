@@ -1,57 +1,60 @@
-$(document).ready(function(){
-    //connect to the socket server.
-    var socket = io.connect('http://' + document.domain + ':' + location.port + '/test');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Chart.js Example</title>
+    <!-- import plugin script -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+    <script src='static/Chart.min.js'></script>
+</head>
+<body>
+<h1>Temperature Sensor #2</h1>
+<!-- bar chart canvas element -->
+<canvas id="myChart" width="600" height="400"></canvas>
+<p id="pointSelected">Point selected:</p>
 
-    socket.on('update', function(data) {
-    // Global parameters:
+<script>
+      // Global parameters:
       // do not resize the chart canvas when its container does (keep at 600x400px)
       Chart.defaults.global.responsive = false;
 
-      // timeFormat = 'hh:mm:ss'
-      function timeConverter(UNIX_timestamp){
-        var a = new Date(UNIX_timestamp * 1000);
-        var hour = a.getHours();
-        var min = a.getMinutes();
-        var sec = a.getSeconds();
-        var time = hour + ':' + min + ':' + sec ;
-        return time;
-      }
-      //Extract values from input
-      var values = data.data;
-      var labels = data.labels;
+      var timeFormat = 'hh:mm:ss';
 
-      labels.forEach(function(part, index) {
-        this[index] = timeConverter(part);
-      }, labels);
-      var legend = data.legend;
+      function newDateString(hours, minutes, seconds) {
+		return moment().hour(hours).minute(minutes).second(seconds).format(timeFormat);
+	  }
 
-      console.log(labels);
+
       // define the chart data
       var chartData = {
-        labels : labels,
+        labels : [{% for item in labels %}
+                   newDateString( {{item.hour}}, {{item.minute}}, {{item.second}} ),
+                  {% endfor %}],
         datasets : [{
-            label: legend,
+            label: '{{ legend }}',
             fill: true,
             lineTension: 0.1,
-            backgroundColor: "rgba(192,192,192,0)",
-            borderColor: "rgba(73, 179, 216,1)",
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
             borderCapStyle: 'butt',
             borderDash: [],
             borderDashOffset: 0.0,
             borderJoinStyle: 'miter',
-            pointBorderColor: "rgba(73, 179, 216,1)",
+            pointBorderColor: "rgba(75,192,192,1)",
             pointBackgroundColor: "#fff",
             pointBorderWidth: 1,
             pointHoverRadius: 5,
-            pointHoverBackgroundColor: "rgba(73, 179, 216,1)",
-            pointHoverBorderColor: "rgba(255,255,255,1)",
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data : values,
+            data : [{% for item in values %}
+                      {{item}},
+                    {% endfor %}],
             spanGaps: false
         }]
-      };
+      }
 
       // get chart canvas
       var holder = document.getElementById("myChart");
@@ -65,7 +68,6 @@ $(document).ready(function(){
       };
 
       // create the chart using the chart canvas
-
       var myChart = new Chart(ctx, {
         type: 'line',
         data: chartData,
@@ -75,12 +77,11 @@ $(document).ready(function(){
             mode: 'single',
             callbacks: {
               label: function(tooltipItems, data) {
-                       firstPointCtx = "First Point Selected: (2:20PM, 72.3 cm)";
-                       return tooltipItems.yLabel + ' cm';
+                       firstPointCtx = "First Point Selected: (2:20PM, 72.3 degrees)";
+                       return tooltipItems.yLabel + ' degrees';
                      }
             }
           },
-          animation: false,
         }
       });
 
@@ -97,5 +98,7 @@ $(document).ready(function(){
         console.log('index: ' + activePoint[0]._index);
         pointSelected.innerHTML = 'Point selected... index: ' + activePoint[0]._index;
       };
-    });
-    });
+    </script>
+
+</body>
+</html>

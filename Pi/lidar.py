@@ -12,11 +12,11 @@ ser.write(0x01)
 ser.write(0x06)
 
 while(True):
-    
+
     while(ser.in_waiting >= 9):
         ser.read()
         ser.read()
-   
+
 
         Dist_L = ser.read()
         Dist_H = ser.read()
