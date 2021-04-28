@@ -3,6 +3,7 @@ import RPi.GPIO as GPIO
 import time
 import threading
 import serial
+from mqtt import Publish as p
 
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
@@ -89,5 +90,6 @@ if __name__ == '__main__':
 	thread3.start()
 	while True:
 	  dict = {"ultra_left" : ultra_left,"ultra_right" : ultra_right, "lidar" : lidar, "timestamp" : time.time()}
+	  p.send(dict)
 	  print(dict)
-	  time.sleep(0.5)
+	  time.sleep(1)
