@@ -2,6 +2,7 @@
 import RPi.GPIO as GPIO
 import time
 import threading
+import serial
 
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
@@ -10,6 +11,16 @@ GPIO.setmode(GPIO.BCM)
 ultra_left = 0
 ultra_right = 0
 lidar = 0
+
+ser = serial.Serial('/dev/ttyUSB0',115200,timeout = 1)
+ser.write(0x42)
+ser.write(0x57)
+ser.write(0x02)
+ser.write(0x00)
+ser.write(0x00)
+ser.write(0x00)
+ser.write(0x01)
+ser.write(0x06)
 
 def read_ultrasound(trig,echo):
 	if trig == 20:
@@ -37,11 +48,11 @@ def read_ultrasound(trig,echo):
 		if trig == 20:
 		  global ultra_right
 		  ultra_right = distance	
-		  print("Right: "+str(distance))
+		  #print("Right: "+str(distance))
 		elif trig == 23:
 		  global ultra_left
 		  ultra_left = distance
-		  print("Left: "+str(distance))
+		  #print("Left: "+str(distance))
 
 #Read the date from the Lidar
 def getTFminiData():
