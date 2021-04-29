@@ -93,24 +93,24 @@ if __name__ == '__main__':
 	thread3 = threading.Thread(target=getTFminiData, daemon=True)
 	thread3.start()
 	while True:
-	if  lidar <5.5:
-		mc.back()
-		time.sleep(.2)
-		mc.stop()
-	if ((ultra_left < 5.5 and left_update) and (ultra_right < 5.5 and right_update)):
-		#back
-		mc.back()
-		time.sleep(.2)
-		mc.stop()
-		left_update = False
-		right_update = False
-	elif ultra_right < 5.5 and right_update:
-		mc.left()
-		time.sleep(.20)
-		mc.stop()
-		right_update = False
-	elif ultra_left < 5.5 and left_updatef:
-		mc.right()
-		time.sleep(.20)
-		mc.stop()
-		left_update = False
+		if  lidar <5.5:
+			mc.back()
+			time.sleep(.2)
+			mc.stop()
+		if ((ultra_left < 5.5 and left_update) and (ultra_right < 5.5 and right_update)):
+			#back
+			mc.back()
+			time.sleep(.2)
+			mc.stop()
+			left_update = False
+			right_update = False
+		elif ultra_right < 5.5 and right_update:
+			mc.left()
+			time.sleep(.20)
+			mc.stop()
+			right_update = False
+		elif ultra_left < 5.5 and left_updatef:
+			mc.right()
+			time.sleep(.20)
+			mc.stop()
+			left_update = False
