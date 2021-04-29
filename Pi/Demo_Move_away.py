@@ -109,7 +109,7 @@ if __name__ == '__main__':
 			time.sleep(.20)
 			mc.stop()
 			right_update = False
-		elif ultra_left < 5.5 and left_updatef:
+		elif ultra_left < 5.5 and left_update:
 			mc.right()
 			time.sleep(.20)
 			mc.stop()
