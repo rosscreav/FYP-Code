@@ -53,12 +53,12 @@ def read_ultrasound(trig,echo):
 		  global ultra_right
 		  ultra_right = distance	
 		  right_update = True
-		  #print("Right: "+str(distance))
+		  print("Updated Right: "+str(distance))
 		elif trig == 23:
 		  global ultra_left
 		  left_update = True
 		  ultra_left = distance
-		  #print("Left: "+str(distance))
+		  print("Updated Left: "+str(distance))
 
 #Read the date from the Lidar
 def getTFminiData():
