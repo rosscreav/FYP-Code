@@ -93,6 +93,8 @@ if __name__ == '__main__':
 	thread3 = threading.Thread(target=getTFminiData, daemon=True)
 	thread3.start()
 	while True:
+		print("Right is updated: "+str(right_update))
+		print("Left is updated: "+str(left_update))
 		if  lidar <5.5:
 			mc.back()
 			time.sleep(.2)
