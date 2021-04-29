@@ -43,7 +43,7 @@ def sub_loop():
     client.on_message = on_message
     ##My Mqtt server
     client.connect('broker.mqttdashboard.com', 1883)
-    client.subscribe('FYP_Mqtt_Messaging/Pi', qos=1)
+    client.subscribe('FYP_Mqtt_Messaging/Pi/Remote', qos=1)
 
     client.loop_forever()
 
