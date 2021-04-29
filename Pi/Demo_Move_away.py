@@ -37,7 +37,7 @@ def read_ultrasound(trig,echo):
 		GPIO.output(trig, True)
 		time.sleep(0.00001)
 		GPIO.output(trig, False)
-		time.sleep(0.1)
+		#time.sleep(0.1)
 
 		while GPIO.input(echo)==0:
 		  pulse_start = time.time()
