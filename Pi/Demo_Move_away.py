@@ -45,21 +45,24 @@ def read_ultrasound(trig,echo):
 		while GPIO.input(echo)==1:
 		  pulse_end = time.time()
 
-		pulse_duration = pulse_end - pulse_start
-		distance = pulse_duration * 17150
-		distance = round(distance,2)
-		if trig == 20:
-		  global ultra_right
-		  global right_update
-		  ultra_right = distance	
-		  right_update = True
-		  #print("Updated Right: "+str(distance))
-		elif trig == 23:
-		  global ultra_left
-		  global left_update
-		  left_update = True
-		  ultra_left = distance
-		  #print("Updated Left: "+str(distance))
+		try:
+			pulse_duration = pulse_end - pulse_start
+			distance = pulse_duration * 17150
+			distance = round(distance,2)
+			if trig == 20:
+			  global ultra_right
+			  global right_update
+			  ultra_right = distance	
+			  right_update = True
+			  #print("Updated Right: "+str(distance))
+			elif trig == 23:
+			  global ultra_left
+			  global left_update
+			  left_update = True
+			  ultra_left = distance
+			  #print("Updated Left: "+str(distance))
+		except:
+			continue
 
 #Read the date from the Lidar
 def getTFminiData():
