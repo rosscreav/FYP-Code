@@ -25,12 +25,12 @@ def on_message(client, userdata, msg):
     elif('right' in str(msg.payload)):
         print("moving right")
         mc.right()
-        time.sleep(.25)
+        time.sleep(.20)
         mc.stop()
     elif('left' in str(msg.payload)):
         print("moving left")
         mc.left()
-        time.sleep(.25)
+        time.sleep(.20)
         mc.stop()
     elif('pi:' in str(msg.payload)):
         print("Good Message: "+ str(msg.payload))
