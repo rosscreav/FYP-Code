@@ -51,11 +51,13 @@ def read_ultrasound(trig,echo):
 		distance = round(distance,2)
 		if trig == 20:
 		  global ultra_right
+		  global right_update
 		  ultra_right = distance	
 		  right_update = True
 		  print("Updated Right: "+str(distance))
 		elif trig == 23:
 		  global ultra_left
+		  global left_update
 		  left_update = True
 		  ultra_left = distance
 		  print("Updated Left: "+str(distance))
