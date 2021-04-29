@@ -54,13 +54,13 @@ def read_ultrasound(trig,echo):
 		  global right_update
 		  ultra_right = distance	
 		  right_update = True
-		  print("Updated Right: "+str(distance))
+		  #print("Updated Right: "+str(distance))
 		elif trig == 23:
 		  global ultra_left
 		  global left_update
 		  left_update = True
 		  ultra_left = distance
-		  print("Updated Left: "+str(distance))
+		  #print("Updated Left: "+str(distance))
 
 #Read the date from the Lidar
 def getTFminiData():
@@ -95,10 +95,10 @@ if __name__ == '__main__':
 	thread3 = threading.Thread(target=getTFminiData, daemon=True)
 	thread3.start()
 	while True:
-		if right_update:
-			print("Right is updated: "+str(right_update))
-		if left_update:
-			print("Left is updated: "+str(left_update))
+		# if right_update:
+		# 	print("Right is updated: "+str(right_update))
+		# if left_update:
+		# 	print("Left is updated: "+str(left_update))
 		if  lidar <5.5:
 			mc.back()
 			time.sleep(.2)
