@@ -14,13 +14,13 @@ def back():
 	forward(-1)
 
 #Turn right
-def right(d=1):
+def left(d=1):
 	k.motor1.throttle = -0.25*d
 	k.motor2.throttle = -0.25*d
 	
 #Trun left
-def left():
-	right(-1)
+def right():
+	left(-1)
 
 #Slow rotate
 def slow_turn():
@@ -37,5 +37,5 @@ if __name__ == "__main__":
 	forward()
 	time.sleep(1)
 	right()
-	time.sleep(0.2)
+	time.sleep(2)
 	stop()
