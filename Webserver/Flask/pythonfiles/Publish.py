@@ -9,5 +9,5 @@ def send(data):
     client.on_publish = on_publish
     client.connect('broker.mqttdashboard.com', 1883)
     client.loop_start()
-    (rc, mid) = client.publish("FYP_Mqtt_Messaging/Pi",str(data), qos=1)
+    (rc, mid) = client.publish("FYP_Mqtt_Messaging/Pi/Remote",str(data), qos=1)
     time.sleep(0.1)

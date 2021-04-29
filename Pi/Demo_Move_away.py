@@ -12,6 +12,8 @@ GPIO.setmode(GPIO.BCM)
 ultra_left = 0
 ultra_right = 0
 lidar = 0
+left_update = False
+right_update = False
 
 ser = serial.Serial('/dev/ttyUSB0',115200,timeout = 1)
 ser.write(0x42)
@@ -50,9 +52,11 @@ def read_ultrasound(trig,echo):
 		if trig == 20:
 		  global ultra_right
 		  ultra_right = distance	
+		  right_update = True
 		  #print("Right: "+str(distance))
 		elif trig == 23:
 		  global ultra_left
+		  left_update = True
 		  ultra_left = distance
 		  #print("Left: "+str(distance))
 
@@ -89,16 +93,24 @@ if __name__ == '__main__':
 	thread3 = threading.Thread(target=getTFminiData, daemon=True)
 	thread3.start()
 	while True:
-		if (ultra_left < 5.5 and ultra_right < 5.5) or lidar <5.5:
-			#back
-			mc.back()
-			time.sleep(.2)
-			mc.stop()
-		elif ultra_right < 5.5:
-			mc.left()
-			time.sleep(.20)
-			mc.stop()
-		elif ultra_left < 5.5:
-			mc.right()
-			time.sleep(.20)
-			mc.stop()
+	if  lidar <5.5:
+		mc.back()
+		time.sleep(.2)
+		mc.stop()
+	if ((ultra_left < 5.5 and left_update) and (ultra_right < 5.5 and right_update)):
+		#back
+		mc.back()
+		time.sleep(.2)
+		mc.stop()
+		left_update = False
+		right_update = False
+	elif ultra_right < 5.5 and right_update:
+		mc.left()
+		time.sleep(.20)
+		mc.stop()
+		right_update = False
+	elif ultra_left < 5.5 and left_updatef:
+		mc.right()
+		time.sleep(.20)
+		mc.stop()
+		left_update = False

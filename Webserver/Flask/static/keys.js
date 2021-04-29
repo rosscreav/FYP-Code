@@ -101,7 +101,7 @@ $('.down').mouseup(function() {
 
 var mqtt_server  = "broker.mqttdashboard.com";
 var mqtt_port  = Number(1883);
-var mqtt_destname  = "FYP_Mqtt_Messaging/Pi";
+var mqtt_destname  = "FYP_Mqtt_Messaging/Pi/Remote";
 
 function sendMQTT(direction){
   const socket = io('http://localhost:5000');
