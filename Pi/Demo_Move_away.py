@@ -58,28 +58,28 @@ def read_ultrasound(trig,echo):
 
 #Read the date from the Lidar
 def getTFminiData():
-    while True:
-    	#print("waiting")
-    	while(ser.in_waiting >= 9):
-    		#Read and discard first two bytes
-        	ser.read()
-        	ser.read()
-        	#print("reading")
-  		#Read low and high disance bytes
-        	Dist_L = ser.read()
-        	Dist_H = ser.read()
-        	#Calculate the distance
-        	Dist_Total = (ord(Dist_H) * 256) + (ord(Dist_L))
-        	#Ignore other bytes
-        	for i in range (0,5):
-            		ser.read()
-        	#Print the distance
-        	#print(str(Dist_Total-3) + "cm")
-        	ser.flush()
-        	##Return the distance
-        	global lidar
-        	lidar = Dist_Total-3
-        	#return Dist_Total-3
+	while True:
+		#print("waiting")
+		while(ser.in_waiting >= 9):
+			#Read and discard first two bytes
+			ser.read()
+			ser.read()
+			#print("reading")
+			#Read low and high disance bytes
+			Dist_L = ser.read()
+			Dist_H = ser.read()
+			#Calculate the distance
+			Dist_Total = (ord(Dist_H) * 256) + (ord(Dist_L))
+			#Ignore other bytes
+			for i in range (0,5):
+					ser.read()
+			#Print the distance
+			#print(str(Dist_Total-3) + "cm")
+			ser.flush()
+			##Return the distance
+			global lidar
+			lidar = Dist_Total-3
+			#return Dist_Total-3
 
 if __name__ == '__main__':
 	thread = threading.Thread(target=read_ultrasound, args=(20,21), daemon=True)
@@ -89,16 +89,16 @@ if __name__ == '__main__':
 	thread3 = threading.Thread(target=getTFminiData, daemon=True)
 	thread3.start()
 	while True:
-	  if (ultra_left < 5.5 and ultra_right < 5.5) or lidar <5.5:
-	  	#back
-        mc.back()
-        time.sleep(.2)
-        mc.stop()
-      elif ultra_right < 5.5:
-      	mc.left()
-        time.sleep(.20)
-        mc.stop()
-      elif ultra_left < 5.5:
-        mc.right()
-        time.sleep(.20)
-        mc.stop()
+	if (ultra_left < 5.5 and ultra_right < 5.5) or lidar <5.5:
+		#back
+		mc.back()
+		time.sleep(.2)
+		mc.stop()
+	elif ultra_right < 5.5:
+		mc.left()
+		time.sleep(.20)
+		mc.stop()
+	elif ultra_left < 5.5:
+		mc.right()
+		time.sleep(.20)
+		mc.stop()
