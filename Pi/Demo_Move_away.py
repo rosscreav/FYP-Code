@@ -27,21 +27,19 @@ ser.write(0x06)
 
 
 def read_ultrasound(trig,echo):
-	if trig == 20:
-	  print("right")
+	# if trig == 20:
+	#   print("right")
 	GPIO.setup(trig,GPIO.OUT)
 	GPIO.setup(echo,GPIO.IN)
 
 	GPIO.output(trig, False)
 	while True:
-		time.sleep(2)
 		GPIO.output(trig, True)
 		time.sleep(0.00001)
 		GPIO.output(trig, False)
 
 		while GPIO.input(echo)==0:
 		  pulse_start = time.time()
-
 
 		while GPIO.input(echo)==1:
 		  pulse_end = time.time()
