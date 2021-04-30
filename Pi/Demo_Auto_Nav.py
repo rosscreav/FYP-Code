@@ -4,6 +4,7 @@ import time
 import threading
 import serial
 import motor_controller as mc
+import random
 
 GPIO.cleanup()
 GPIO.setmode(GPIO.BCM)
