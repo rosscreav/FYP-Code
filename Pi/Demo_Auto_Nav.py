@@ -113,7 +113,7 @@ def turn_reset(direction):
 		mc.right()
 		time.sleep(.20)
 		mc.stop()
-	mc.forward()
+	mc.forward(speed=0.15)
 	print("turn rest ended")
 	return
 
@@ -127,7 +127,7 @@ if __name__ == '__main__':
 	thread2.start()
 	thread3 = threading.Thread(target=getTFminiData, daemon=True)
 	thread3.start()
-	mc.forward()
+	mc.forward(speed=0.15)
 	while True:
 		if  lidar <5.5:
 			mc.stop()

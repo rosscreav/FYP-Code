@@ -5,9 +5,9 @@ import time
 k = MotorKit()
 
 #Go forward
-def forward(d=1):
-	k.motor1.throttle = 0.25*d
-	k.motor2.throttle = -0.25*d
+def forward(d=1,speed=0.25):
+	k.motor1.throttle = speed*d
+	k.motor2.throttle = -speed*d
 
 #Go back
 def back():
