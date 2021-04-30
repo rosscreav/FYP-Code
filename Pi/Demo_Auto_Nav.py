@@ -98,19 +98,23 @@ def turn_reset(direction):
 	if direction == "front":
 		##If theres more space on the left
 		if ultra_left > ultra_right:
+			print("Lidar: Turning left")
 			mc.left()
 			time.sleep(float(random.randint(5,12)/10.0))
 			mc.stop()
 		##If theres more space on the right
 		else:
+			print("Lidar: Turning right")
 			mc.right()
 			time.sleep(float(random.randint(5,12)/10.0))
 			mc.stop()
 	elif direction == "right":
+		print("Ultra: Turning left")
 		mc.left()
 		time.sleep(.20)
 		mc.stop()
 	else:
+		print("Ultra: Turning right")
 		mc.right()
 		time.sleep(.20)
 		mc.stop()
