@@ -49,6 +49,14 @@ def index():
     # only by sending this page first will the client be connected to the socketio instance
     return render_template('livelidar.html')
 
+##Route index to threading
+@app.route('/test')
+def index():
+    # only by sending this page first will the client be connected to the socketio instance
+    return render_template('livelidar.html')
+
+
+
 ##Route to mqtt hmtl file
 @app.route('/MQTTControl')
 def index2():
