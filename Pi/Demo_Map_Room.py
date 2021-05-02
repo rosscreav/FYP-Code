@@ -50,6 +50,7 @@ if __name__ == '__main__':
 	thread = threading.Thread(target=getTFminiData, daemon=True)
 	thread.start()
 	##Spin in circle
+	global reading
 	mc.slow_turn()
 	reading = True
 	time.sleep(3.9)
