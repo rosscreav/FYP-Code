@@ -34,8 +34,11 @@ def stop():
 
 ##Simple test if file is called
 if __name__ == "__main__":
-	forward()
-	time.sleep(1)
-	right()
-	time.sleep(2)
+	# forward()
+	# time.sleep(1)
+	# right()
+	# time.sleep(2)
+	# stop()
+	slow_turn()
+	time.sleep(5)
 	stop()
