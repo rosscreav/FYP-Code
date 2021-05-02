@@ -22,9 +22,9 @@ lidar_measurements = []
 
 #Read the date from the Lidar
 def getTFminiData():
-	while True and reading:
+	while True:
 		#print("waiting")
-		while(ser.in_waiting >= 9):
+		while(ser.in_waiting >= 9 and reading):
 			#Read and discard first two bytes
 			ser.read()
 			ser.read()
@@ -42,6 +42,7 @@ def getTFminiData():
 			ser.flush()
 			##Return the distance
 			global lidar_measurements
+			print("measured")
 			lidar_measurements.append(Dist_Total-3)
 			#return Dist_Total-3
 
