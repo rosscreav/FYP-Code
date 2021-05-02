@@ -55,7 +55,7 @@ if __name__ == '__main__':
 	time.sleep(3.9)
 	mc.stop()
 	reading = False
-	print("Measurement count: " len(lidar_measurements))
+	print("Measurement count: " +str(len(lidar_measurements)))
 	print(lidar_measurements)
 	##Read measurements 
 
