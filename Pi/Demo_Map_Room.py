@@ -45,8 +45,7 @@ def getTFminiData():
 			lidar_measurements.append(Dist_Total-3)
 			#return Dist_Total-3
 
-
-if __name__ == '__main__':
+def map():
 	thread = threading.Thread(target=getTFminiData, daemon=True)
 	thread.start()
 	##Spin in circle
@@ -61,3 +60,7 @@ if __name__ == '__main__':
 	##Read measurements 
 
 	##Send map
+
+
+if __name__ == '__main__':
+	map()
