@@ -50,7 +50,7 @@
 <div style="padding-left:60px;background-color: white;margin-left:40px;margin-right:40px;margin-bottom: 0px;margin-top:0px;">
     <div class="row" style="padding-top:20px;">
         <div class="column">
-            <img src="static\images\sample2.png" alt="Room Map" style="object-fit: contain;box-shadow:10px;" width="768" height="432" >
+            <img src="static\images\map.png" alt="Room Map" style="object-fit: contain;box-shadow:10px;" width="768" height="432" id="map_image">
         </div>
         <div class="column">
             <iframe width="768" height="432" src="https://www.youtube.com/embed/nadiVf02GzI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -74,16 +74,16 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td scope="row" style="color:black;">Left Ultrasound</td>
-                    <td style="color:black;">1111cm</td>
+                    <td scope="row" style="color:black;" >Left Ultrasound</td>
+                    <td style="color:black;" id="ultra_left">1111cm</td>
                 </tr>
                 <tr>
-                    <td scope="row" style="color:black;">Right Ultrasound</td>
-                    <td style="color:black;">1111cm</td>
+                    <td scope="row" style="color:black;" id="lidar_value">Right Ultrasound</td>
+                    <td style="color:black;" id="lidar_value">1111cm</td>
                 </tr>
                 <tr>
-                    <td scope="row" style="color:black;">Lidar Sensor</td>
-                    <td style="color:black;">1000cm</td>
+                    <td scope="row" style="color:black;" >Lidar Sensor</td>
+                    <td style="color:black;" id="lidar_value">1000cm</td>
                 </tr>
                 </tbody>
             </table>

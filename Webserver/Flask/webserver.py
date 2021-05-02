@@ -28,11 +28,17 @@ def update_chart_data():
         times.append(entry['timestamp'])
         data.append(entry['lidar'])
     #Reverse to show newest data on the right
+    ultra_left = database[0]['ultra_left']
+    ultra_right = database[0]['ultra_right']
+    lidar_value = database[0]['lidar']
     data.reverse()
     times.reverse()
     data_dict = {"data": data, "labels": times, "legend": legend}
     #Send the data to the javascript
     socketIO.emit('update', data_dict, namespace='/test')
+    socketIO.emit('ultra_left', ultra_left, namespace='/test')
+    socketIO.emit('ultra_right', ultra_right, namespace='/test')
+    socketIO.emit('lidar_value', lidar_value, namespace='/test')
     #Wait 5 seconds
     socketIO.sleep(5)
 

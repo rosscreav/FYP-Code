@@ -98,5 +98,18 @@ $(document).ready(function(){
         pointSelected.innerHTML = 'Point selected... index: ' + activePoint[0]._index;
       };
     });
+
+     socket.on('ultra_left', function(value) {
+        document.getElementById('ultra_left').innerHTML  = value;
+     });
+
+     socket.on('ultra_right', function(value) {
+        document.getElementById('ultra_right').innerHTML  = value;
+     });
+
+     socket.on('lidar_value', function(value) {
+        document.getElementById('lidar').innerHTML  = value;
+     });
+
     });
 
