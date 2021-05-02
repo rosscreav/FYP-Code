@@ -7,6 +7,7 @@ def smooth(y, box_pts):
     return y_smooth
 
 def plot(input):
+	input= list(filter((-3).__ne__, input))
 	angle = 360/len(input)
 	curangle = 0
 	x=[]
@@ -24,6 +25,5 @@ def plot(input):
 
 
 if __name__ == '__main__':
-	input= list(filter((-3).__ne__, input))
 	plot(input)
 	#draw()
