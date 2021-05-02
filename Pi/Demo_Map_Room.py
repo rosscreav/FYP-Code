@@ -43,7 +43,7 @@ def getTFminiData():
 			ser.flush()
 			##Return the distance
 			global lidar_measurements
-			print("measured")
+			#print("measured")
 			lidar_measurements.append(Dist_Total-3)
 			#return Dist_Total-3
 
