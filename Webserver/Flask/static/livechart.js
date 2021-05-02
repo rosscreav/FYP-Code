@@ -108,7 +108,7 @@ $(document).ready(function(){
      });
 
      socket.on('lidar_value', function(value) {
-        document.getElementById('lidar').innerHTML  = value;
+        document.getElementById('lidar_value').innerHTML  = value;
      });
 
     });
