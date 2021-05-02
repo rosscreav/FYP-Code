@@ -6,6 +6,7 @@ import serial
 import motor_controller as mc
 from mqtt import Publish as p
 import random
+from firebase import firebase
 
 ser = serial.Serial('/dev/ttyUSB0',115200,timeout = 1)
 ser.write(0x42)
@@ -52,16 +53,19 @@ def map():
 	##Spin in circle
 	global reading
 	mc.slow_turn()
+	##Read lidar
 	reading = True
-	time.sleep(3.9)
+	time.sleep(4.2)
+	##Stop
 	mc.stop()
 	reading = False
 	print("Measurement count: " +str(len(lidar_measurements)))
 	print(lidar_measurements)
-	##Read measurements 
-
+	d = dict(enumerate(lidar_measurements))
 	##Send map
-
+	fb = firebase.FirebaseApplication('https://fyp-database-7e287-default-rtdb.europe-west1.firebasedatabase.app/',None)
+	result = fb.post('/MapData/',d)
+	print(result)
 
 if __name__ == '__main__':
 	map()
