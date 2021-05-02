@@ -53,11 +53,10 @@ if __name__ == '__main__':
 	mc.slow_turn()
 	reading = True
 	time.sleep(3.9)
+	mc.stop()
 	reading = False
 	print("Measurement count: " len(lidar_measurements))
 	print(lidar_measurements)
-
-	
 	##Read measurements 
 
 	##Send map
