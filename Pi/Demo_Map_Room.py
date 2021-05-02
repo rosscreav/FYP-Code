@@ -55,7 +55,7 @@ def map():
 	mc.slow_turn()
 	##Read lidar
 	reading = True
-	time.sleep(4.2)
+	time.sleep(4.35)
 	##Stop
 	mc.stop()
 	reading = False
