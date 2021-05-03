@@ -47,11 +47,11 @@ def read_ultrasound(trig,echo):
 		pulse_duration = pulse_end - pulse_start
 		distance = pulse_duration * 17150
 		distance = round(distance,2)
-		if trig == 23:
+		if trig == 20:
 		  global ultra_right
 		  ultra_right = distance	
 		  #print("Right: "+str(distance))
-		elif trig == 20:
+		elif trig == 23:
 		  global ultra_left
 		  ultra_left = distance
 		  #print("Left: "+str(distance))
@@ -90,7 +90,7 @@ if __name__ == '__main__':
 	thread3.start()
 	while True:
 	  dict = {"ultra_left" : ultra_left,"ultra_right" : ultra_right, "lidar" : lidar, "timestamp" : time.time()}
-	  fire.send(dict,'RealData')
-	  p.send(dict)
+	  #fire.send(dict,'RealData')
+	  p.send(dict,location='Pi')
 	  print(dict)
 	  time.sleep(1)
