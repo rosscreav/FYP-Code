@@ -111,5 +111,13 @@ $(document).ready(function(){
         document.getElementById('lidar_value').innerHTML  = value;
      });
 
+     socket.on('mapComplete', function(value) {
+        document.getElementById('map').innerHTML  = value;
+     });
+     
+     socket.on('alarm', function(value) {
+        document.getElementById('alarm').className   = value;
+     });
+
     });
 
