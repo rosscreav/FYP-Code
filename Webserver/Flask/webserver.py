@@ -113,6 +113,7 @@ def plot(input):
             y.append((dist+18) * math.sin(math.radians(curangle)))
         curangle+= angle
     #yhat = np.convolve(y, box, mode='same')
+    plt.cla()
     plt.scatter(x, smooth(y,3))
     plt.scatter([0],[0],color='red')
     plt.text(0, 0+2, 'Robot Postion')
