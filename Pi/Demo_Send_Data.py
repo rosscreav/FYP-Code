@@ -90,7 +90,7 @@ if __name__ == '__main__':
 	thread3.start()
 	while True:
 	  dict = {"ultra_left" : ultra_left,"ultra_right" : ultra_right, "lidar" : lidar, "timestamp" : time.time()}
-	  fire.send(dict,'RealData')
-	  p.send(dict)
+	  #fire.send(dict,'RealData')
+	  p.send(dict,location='Pi')
 	  print(dict)
 	  time.sleep(1)
