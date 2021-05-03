@@ -63,10 +63,20 @@ def index1():
     plot(MapData)
     return render_template('livelidar.html')
 
+##Route index to main webpage
+@app.route('/map')
+def index2():
+    # only by sending this page first will the client be connected to the socketio instance
+    MapData = get_most_recent_data()
+    plot(MapData)
+    return render_template('map.html')
+
+
 ##Route to mqtt hmtl file
 @app.route('/MQTTControl')
-def index2():
+def index3():
     return render_template('mqttcontrol.html')
+
 
 ##On connection the test webpage starts a thread to update the chart every 5s
 @socketIO.on('connect', namespace='/test')
@@ -78,7 +88,7 @@ def test_connect():
     # Start the thread only if the thread has not been started before.
     if not thread.isAlive():
         print("Starting Thread")
-        thread = socketIO.start_background_task(update_chart_data)
+        #thread = socketIO.start_background_task(update_chart_data)
 
 ##Send message from javascript socket
 @socketIO.on('message')
