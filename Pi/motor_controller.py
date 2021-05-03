@@ -24,8 +24,8 @@ def right():
 
 #Slow rotate
 def slow_turn():
-	k.motor1.throttle = -0.1
-	k.motor2.throttle = -0.1
+	k.motor1.throttle = -0.18
+	k.motor2.throttle = -0.18
 
 #Turn off motors
 def stop():
