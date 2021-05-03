@@ -114,9 +114,10 @@ $(document).ready(function(){
      socket.on('mapComplete', function(value) {
         document.getElementById('map').innerHTML  = value;
      });
-     
-     socket.on('alarm', function(value) {
-        document.getElementById('alarm').className   = value;
+
+     socket.on('alarm', function(color,text) {
+        document.getElementById('alarm').className   = color;
+        document.getElementById('alarm').innerHTML   = text;
      });
 
     });

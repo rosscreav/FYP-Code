@@ -21,6 +21,7 @@ socketIO = SocketIO(app, async_mode=None, logger=True, engineio_logger=True)
 # Thread
 thread = Thread()
 thread_stop_event = Event()
+mapCreationTime=""
 
 #Get the data from firebase and use it to update the chart
 def update_chart_data():
@@ -47,10 +48,11 @@ def update_chart_data():
         socketIO.emit('ultra_right', str(ultra_right)+"cm", namespace='/test')
         socketIO.emit('lidar_value', str(lidar_value)+"cm", namespace='/test')
         if ultra_right < 5.5 or ultra_right <5.5 or lidar_value <5.5:
-            socketIO.emit('alarm', "activecolors", namespace='/test')
+            socketIO.emit('alarm', "activecolors","Active", namespace='/test')
         else:
-            socketIO.emit('alarm', "inactivecolors", namespace='/test')
+            socketIO.emit('alarm', "inactivecolors","Inactive", namespace='/test')
         #Wait 5 seconds
+        socketIO.emit('mapComplete',mapCreationTime,namespace='/test')
         socketIO.sleep(1)
 
 
@@ -66,8 +68,9 @@ def index1():
     # only by sending this page first will the client be connected to the socketio instance
     MapData = get_most_recent_data()
     plot(MapData)
-
-    socketIO.emit('mapComplete',str(datetime.now()),namespace='/test')
+    global mapCreationTime
+    mapCreationTime=str(datetime.now())
+    
     return render_template('livelidar.html')
 
 ##Route index to main webpage
