@@ -25,7 +25,7 @@ def plot(input):
 	plt.scatter(x, smooth(y,3))
 	plt.scatter([0],[0],color='red')
 	plt.text(0, 0+2, 'Robot Postion')
-	plt.savefig('/Flask/static/images/map.png')
+	plt.savefig('./Flask/static/images/map.png')
 
 
 if __name__ == '__main__':

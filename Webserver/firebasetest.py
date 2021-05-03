@@ -7,7 +7,7 @@ def get_most_recent_data():
 
     MapData = []
 
-    db_entries = fb.get('./MapData/',None)
+    db_entries = fb.get('/MapData/',None)
     db_entries = list(db_entries.values())
     db_entries.reverse()
     for entry in db_entries[0]:
