@@ -18,29 +18,30 @@ thread_stop_event = Event()
 
 #Get the data from firebase and use it to update the chart
 def update_chart_data():
-    #inputs for the js
-    legend = 'Lidar Readings'
-    data = []
-    times = []
-    #Query the database
-    database = firebase_query.get_most_recent_data()
-    for entry in database:
-        times.append(entry['timestamp'])
-        data.append(entry['lidar'])
-    #Reverse to show newest data on the right
-    ultra_left = database[0]['ultra_left']
-    ultra_right = database[0]['ultra_right']
-    lidar_value = database[0]['lidar']
-    data.reverse()
-    times.reverse()
-    data_dict = {"data": data, "labels": times, "legend": legend}
-    #Send the data to the javascript
-    socketIO.emit('update', data_dict, namespace='/test')
-    socketIO.emit('ultra_left', ultra_left, namespace='/test')
-    socketIO.emit('ultra_right', ultra_right, namespace='/test')
-    socketIO.emit('lidar_value', lidar_value, namespace='/test')
-    #Wait 5 seconds
-    socketIO.sleep(5)
+    while True:
+        #inputs for the js
+        legend = 'Lidar Readings'
+        data = []
+        times = []
+        #Query the database
+        database = firebase_query.get_most_recent_data()
+        for entry in database:
+            times.append(entry['timestamp'])
+            data.append(entry['lidar'])
+        #Reverse to show newest data on the right
+        ultra_left = database[0]['ultra_left']
+        ultra_right = database[0]['ultra_right']
+        lidar_value = database[0]['lidar']
+        data.reverse()
+        times.reverse()
+        data_dict = {"data": data, "labels": times, "legend": legend}
+        #Send the data to the javascript
+        socketIO.emit('update', data_dict, namespace='/test')
+        socketIO.emit('ultra_left', str(ultra_left)+"cm", namespace='/test')
+        socketIO.emit('ultra_right', str(ultra_right)+"cm", namespace='/test')
+        socketIO.emit('lidar_value', str(lidar_value)+"cm", namespace='/test')
+        #Wait 5 seconds
+        socketIO.sleep(5)
 
 
 ##Route index to main webpage
