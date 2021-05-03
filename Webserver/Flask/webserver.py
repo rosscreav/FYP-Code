@@ -88,7 +88,7 @@ def test_connect():
     # Start the thread only if the thread has not been started before.
     if not thread.isAlive():
         print("Starting Thread")
-        #thread = socketIO.start_background_task(update_chart_data)
+        thread = socketIO.start_background_task(update_chart_data)
 
 ##Send message from javascript socket
 @socketIO.on('message')
