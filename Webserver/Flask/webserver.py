@@ -46,7 +46,7 @@ def update_chart_data():
         socketIO.emit('ultra_right', str(ultra_right)+"cm", namespace='/test')
         socketIO.emit('lidar_value', str(lidar_value)+"cm", namespace='/test')
         #Wait 5 seconds
-        socketIO.sleep(5)
+        socketIO.sleep(1)
 
 
 ##Route index to main webpage
