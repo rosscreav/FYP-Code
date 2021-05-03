@@ -5,6 +5,11 @@ from threading import Thread, Event
 from pythonfiles import Publish as p
 ##Python script to query datanase
 from pythonfiles import firebase_query
+import matplotlib.pyplot as plt
+import numpy as np
+import math
+from firebase import firebase
+
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
@@ -54,6 +59,8 @@ def index():
 @app.route('/test')
 def index1():
     # only by sending this page first will the client be connected to the socketio instance
+    MapData = get_most_recent_data()
+    plot(MapData)
     return render_template('livelidar.html')
 
 ##Route to mqtt hmtl file
@@ -87,3 +94,39 @@ def test_disconnect():
 ##Run webstie
 if __name__ == '__main__':
     socketIO.run(app)
+
+##Plotting
+def smooth(y, box_pts):
+    box = np.ones(box_pts)/box_pts
+    y_smooth = np.convolve(y, box, mode='same')
+    return y_smooth
+
+def plot(input):
+    input= list(filter((-3).__ne__, input))
+    angle = 360/len(input)
+    curangle = 0
+    x=[]
+    y=[]
+    for dist in input:
+        if dist != -3:
+            x.append((dist+18) * math.cos(math.radians(curangle)))
+            y.append((dist+18) * math.sin(math.radians(curangle)))
+        curangle+= angle
+    #yhat = np.convolve(y, box, mode='same')
+    plt.scatter(x, smooth(y,3))
+    plt.scatter([0],[0],color='red')
+    plt.text(0, 0+2, 'Robot Postion')
+    plt.savefig('./static/images/map.png')
+
+def get_most_recent_data():
+    fb = firebase.FirebaseApplication("https://fyp-database-7e287-default-rtdb.europe-west1.firebasedatabase.app/",None)
+
+    MapData = []
+
+    db_entries = fb.get('./MapData/',None)
+    db_entries = list(db_entries.values())
+    db_entries.reverse()
+    for entry in db_entries[0]:
+        MapData.append(entry)
+    return MapData
+
