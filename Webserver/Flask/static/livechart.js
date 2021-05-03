@@ -115,9 +115,8 @@ $(document).ready(function(){
         document.getElementById('map').innerHTML  = value;
      });
 
-     socket.on('alarm', function(color,text) {
+     socket.on('alarm', function(color) {
         document.getElementById('alarm').className   = color;
-        document.getElementById('alarm').innerHTML   = text;
      });
 
     });

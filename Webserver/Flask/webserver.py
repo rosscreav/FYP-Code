@@ -48,9 +48,9 @@ def update_chart_data():
         socketIO.emit('ultra_right', str(ultra_right)+"cm", namespace='/test')
         socketIO.emit('lidar_value', str(lidar_value)+"cm", namespace='/test')
         if ultra_right < 5.5 or ultra_right <5.5 or lidar_value <5.5:
-            socketIO.emit('alarm', "activecolors","Active", namespace='/test')
+            socketIO.emit('alarm', "activecolors", namespace='/test')
         else:
-            socketIO.emit('alarm', "inactivecolors","Inactive", namespace='/test')
+            socketIO.emit('alarm', "inactivecolors", namespace='/test')
         #Wait 5 seconds
         socketIO.emit('mapComplete',mapCreationTime,namespace='/test')
         socketIO.sleep(1)
