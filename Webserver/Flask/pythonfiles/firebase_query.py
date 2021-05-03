@@ -5,7 +5,7 @@ def get_most_recent_data():
 
     most_recent_entries = []
 
-    db_entries = fb.get('/MockedData/',None)
+    db_entries = fb.get('/RealData/',None)
     db_entries = list(db_entries.values())
     db_entries.reverse()
     for entry in db_entries:
