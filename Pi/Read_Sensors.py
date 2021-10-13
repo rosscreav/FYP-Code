@@ -1,9 +1,10 @@
+##A script to read both ultrasounds and LIDAR sensors (importable) 
 ##Imports
 import RPi.GPIO as GPIO
 import time
 import serial
 
-#Write the command to the serial bus for Lidar activation
+#Write the command to the serial bus to activate Lidar sensor
 ser = serial.Serial('/dev/ttyUSB0',115200,timeout = 1)
 ser.write(0x42)
 ser.write(0x57)
@@ -14,26 +15,26 @@ ser.write(0x00)
 ser.write(0x01)
 ser.write(0x06)
 
-#Pinout for the ultrasound left 
+#Pinout for the left ultrasound 
 trig_l = 21
 echo_l = 20
-#Pinout for the ultrasound right 
+#Pinout for the right ultrasound 
 trig_r = 24
 echo_r = 23
 
-#Set pinout the BCM format
+#Set pinout the BCM numbering format
 GPIO.setmode(GPIO.BCM)
 
-#Read the ultrasound on the given pins
+#Read the ultrasound on the inputted pins
 def read_ultrasound(trig, echo):
 	#Setup pins
 	GPIO.setup(trig,GPIO.OUT)
 	GPIO.setup(echo,GPIO.IN)
 	#Set trig to 0
 	GPIO.output(trig, False)
-	#Wait to settle 
+	#Wait for the pin to settle at low
 	time.sleep(1)
-	#Set trig to high
+	#Set the trigger pin high
 	GPIO.output(trig, True)
 	#Turn off pin after 0.00001s
 	time.sleep(0.00001)
@@ -45,30 +46,32 @@ def read_ultrasound(trig, echo):
 	while GPIO.input(echo)==1:
 		pulse_end = time.time()
 
-	##Length Calculation
+	##Length Calculation (cm)
 	pulse_duration = pulse_end - pulse_start
 	distance = pulse_duration * 17150
 	distance = round(distance,2)
 	##Return distance in centimeters rounded to 2 decimals
 	return distance
 
-#Read the date from the Lidar
+##Read the data from the Lidar
 def getTFminiData():
+	##Wait till full 9 bits are queued 
     while(ser.in_waiting >= 9):
-    	#Read and discard first two bytes
+    	##Read and discard first two bytes (error check bits #TODO handle error)
         ser.read()
         ser.read()
   		
-  		#Read low and high disance bytes
+  		##Read low and high disance bytes
         Dist_L = ser.read()
         Dist_H = ser.read()
-        #Calculate the distance
+        ##Calculate the distance
         Dist_Total = (ord(Dist_H) * 256) + (ord(Dist_L))
-        #Ignore other bytes
+        ##Ignore other bytes
         for i in range (0,5):
             ser.read()
-        #Print the distance
+        ##Print the distance to console
         print(str(Dist_Total-3) + "cm")
+        #Flush the serial port
         ser.flush()
         ##Return the distance
         return Dist_Total-3
@@ -85,10 +88,9 @@ def read_sensor_data():
 	#Print readings
 	print(ultrasound_l)
 	print(ultrasound_r)
-	#Return data in format for firebase
-	#return {"ultra_left" : 20.23, "ultra_right" : 20.2, "lidar" : 20.32, "timestamp" : time.time()}
+	#Return data in format for firebase including timestamp
 	return {"ultra_left" : ultrasound_l,"ultra_right" : ultrasound_r, "lidar" : lidar, "timestamp" : time.time()}
 
-#if name = main
+#if called for a test just read sensors once
 if __name__ == "main":
 	read_sensor_data()
